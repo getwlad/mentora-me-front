@@ -1,23 +1,7 @@
-import { Snackbar } from "@mui/material";
-import Head from "next/head";
-import Footer from "../components/Layout/Default/Footer";
-import Header from "../components/Layout/Default/Header";
-import Content from "./MainPage/Content";
-import { Container, Label } from "./style";
+import MainPage from "./../components/MainPage";
 
 const Main = () => {
-  return (
-    <>
-      <Head>
-        <title>Mentora-Me</title>
-      </Head>
-      <Container>
-        <Header />
-        <Content />
-        <Footer />
-      </Container>
-    </>
-  );
+  return <MainPage />;
 };
 
 export default Main;

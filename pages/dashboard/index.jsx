@@ -1,21 +1,6 @@
-import Head from "next/head";
-import Footer from "../../components/Layout/Logged/Footer";
-import Header from "../../components/Layout/Logged/Header";
-import Content from "./Content";
-import { Container } from "./style";
-const Dashboard = () => {
-  return (
-    <>
-      <Head>
-        <title>Dasboard</title>
-      </Head>
-      <Container>
-        <Header />
-        <Content />
-        <Footer />
-      </Container>
-    </>
-  );
+import Dashboard from "../../components/dashboard";
+const DashboardPage = () => {
+  return <Dashboard />;
 };
 
-export default Dashboard;
+export default DashboardPage;
