@@ -62,6 +62,7 @@ export const Input = styled.input`
   padding: 10px;
   margin: 5px;
   color: black;
+  background-color: #fff;
 
   &::placeholder {
     color: black;
