@@ -53,7 +53,6 @@ export const Form = styled.div`
 `;
 
 export const Input = styled.input`
-  background: #fff;
   width: 100%;
   height: 64px;
   line-height: 64px;
@@ -62,6 +61,7 @@ export const Input = styled.input`
   font-size: 1.2rem;
   padding: 10px;
   margin: 5px;
+  color: black;
 
   &::placeholder {
     color: black;
