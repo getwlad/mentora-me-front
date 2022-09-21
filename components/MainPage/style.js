@@ -40,6 +40,7 @@ export const Input = styled.input`
   font-size: 24px;
   margin-right: 24px;
   padding: 0 24px;
+  color: black;
 
   &::placeholder {
     color: #191919;
