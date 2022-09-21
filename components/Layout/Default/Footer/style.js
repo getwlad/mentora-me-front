@@ -12,4 +12,5 @@ export const FooterComponent = styled.footer`
   width: 100%;
   color: white;
   padding: 0 2rem;
+  flex-grow: 0;
 `;

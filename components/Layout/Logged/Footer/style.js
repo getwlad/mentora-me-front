@@ -12,7 +12,7 @@ export const FooterComponent = styled.footer`
   height: 100px;
   width: 100%;
   color: white;
+  grid-row: 3;
   padding: 0 2rem;
-  position: absolute;
-  bottom: 0;
+  position: relative;
 `;

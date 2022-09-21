@@ -9,8 +9,8 @@ export const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  position: absolute;
-  top: 0;
+  position: relative;
+  grid-row: 1;
 `;
 
 export const Div = styled.div`

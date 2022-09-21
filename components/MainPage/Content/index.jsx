@@ -18,6 +18,8 @@ const Home = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const serverUrl = "https://mentora-me.herokuapp.com/";
+  // const serverUrl = "http://localhost:3001/";
+
   const api = axios.create({
     baseURL: serverUrl,
   });
@@ -29,7 +31,8 @@ const Home = () => {
       })
       .then((resp) => {
         if (resp.data.auth) {
-          setCookie("user", resp.data);
+          setCookie("user", JSON.stringify(resp.data));
+
           const token = resp.data.token;
           const config = {
             headers: { Authorization: `Bearer ${token}` },
@@ -37,15 +40,16 @@ const Home = () => {
           if (resp.data.user.user_type === "STUDENT") {
             api
               .get("/student/show", config)
-              .then((resp) => {
-                setCookie("info", resp.data);
+              .then((respShow) => {
+                setCookie("info", JSON.stringify(respShow.data));
+                router.push("/dashboard");
               })
+
               .catch((e) => {
                 console.log(e);
                 router.push("/");
               });
           }
-          router.push("/dashboard");
         }
       })
       .catch((e) => {
@@ -87,7 +91,6 @@ const Home = () => {
         <Button
           onClick={async () => {
             await login();
-            // router.push("/dashboard")
           }}
         >
           <AiIcon size={42} />

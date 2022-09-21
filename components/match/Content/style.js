@@ -11,11 +11,15 @@ export const Section = styled.section`
   height: 100%;
   color: white;
   width: 100%;
-  padding: 0 2rem;
+
+  grid-row: 2;
 `;
 
 export const Loading = styled.div`
   height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Card = styled.div`
@@ -170,9 +174,9 @@ export const TextMentorship = styled.span`
 
 export const Match = styled.div`
   display: flex;
+  height: 100%;
   align-items: center;
   @media (max-width: 768px) {
     flex-direction: column;
-    overflow: scroll;
   }
 `;
