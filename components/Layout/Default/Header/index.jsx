@@ -1,6 +1,5 @@
 import { Nav, Label } from "./style";
-import { Snackbar, Alert, AlertProps } from "@mui/material";
-import { useState } from "react";
+
 const Header = (props) => {
   return (
     <Nav>
