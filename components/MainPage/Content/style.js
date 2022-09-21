@@ -93,6 +93,11 @@ export const Button = styled.button`
   &:hover {
     background: green;
   }
+  @media (max-width: 768px) {
+    &:hover {
+      background: green;
+    }
+  }
 `;
 
 export const AiIcon = styled(AiOutlineLogin)`

@@ -2,6 +2,7 @@ import { Nav, Label, Button, AiIcon, DivLogout, LogoutText } from "./style";
 import Link from "next/link";
 import { BrowserRouter as Router, useRouter } from "next/router";
 import { deleteCookie } from "cookies-next";
+
 const Header = (props) => {
   const router = useRouter();
   const logout = () => {

@@ -11,18 +11,20 @@ import {
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import Link from "next/link";
 import { BrowserRouter as Router, useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-import axios from "axios";
+import api from "../../../services/api.service";
 const Home = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const serverUrl = "https://mentora-me.herokuapp.com/";
-  // const serverUrl = "http://localhost:3001/";
 
-  const api = axios.create({
-    baseURL: serverUrl,
-  });
+  const verifyKeyPressed = async (e) => {
+    if (e.code === "Enter" || e.code === "NumpadEnter") {
+      await login();
+    }
+  };
   const login = async () => {
     api
       .post("/user/login", {
@@ -46,19 +48,30 @@ const Home = () => {
               })
 
               .catch((e) => {
-                console.log(e);
-                router.push("/");
+                toast.error(`Error: ${e.response.data.error}`);
               });
           }
         }
       })
       .catch((e) => {
-        console.log(e);
+        toast.error(`Error: ${e.response.data.error}`);
       });
   };
 
   return (
     <Section>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+
       <Div>
         <Title>
           Encontre
@@ -76,6 +89,9 @@ const Home = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            onKeyUp={(e) => {
+              verifyKeyPressed(e);
+            }}
           />
           <Input
             placeholder="Senha"
@@ -84,6 +100,9 @@ const Home = () => {
             value={password}
             onChange={(e) => {
               setPassword(e.target.value);
+            }}
+            onKeyUp={(e) => {
+              verifyKeyPressed(e);
             }}
           />
         </DivInputs>

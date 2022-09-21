@@ -26,13 +26,9 @@ import Link from "next/link";
 import { BrowserRouter as Router, useRouter } from "next/router";
 import { getCookie, setCookie, deleteCookie } from "cookies-next";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../services/api.service";
 
 const Home = () => {
-  const serverUrl = "https://mentora-me.herokuapp.com/";
-  const api = axios.create({
-    baseURL: serverUrl,
-  });
   const router = useRouter();
   const [mentorsData, setMentorsData] = useState({ name: "Usuario" });
   useEffect(() => {
@@ -59,7 +55,7 @@ const Home = () => {
       router.push("/");
     }
   }, []);
-  // const mentorsData = [];
+
   const [mentorAtual, setMentorAtual] = useState(0);
   let mentors;
   if (mentorsData.length > 0) {
