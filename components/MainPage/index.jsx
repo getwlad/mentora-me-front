@@ -24,7 +24,6 @@ const Home = () => {
   const [password, setPassword] = useState("");
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
-  const ref = useRef(null);
   const verifyKeyPressed = async (e) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
       await login();
@@ -32,6 +31,7 @@ const Home = () => {
   };
 
   const login = async () => {
+    if (clicked) return;
     setClicked(true);
     const resp = await api
       .post("/user/login", {
@@ -42,7 +42,9 @@ const Home = () => {
         toast.error(`Error: ${e.response.data.error}`);
       });
 
-    if (!resp) return;
+    if (!resp) {
+      return setClicked(false);
+    }
 
     setCookie("user", JSON.stringify(resp.data));
     const token = resp.data.token;
@@ -57,12 +59,15 @@ const Home = () => {
           toast.error(`Error: ${e.response.data.error}`);
         });
       if (!studentResponse) {
-        return;
+        return setClicked(false);
       }
+
       setCookie("info", JSON.stringify(studentResponse.data));
-      router.push("/dashboard");
+      toast.success("Login efetuado com sucesso");
+      setTimeout(() => {
+        router.push("/dashboard");
+      }, 1000);
     }
-    setClicked(false);
   };
 
   return (
@@ -121,9 +126,7 @@ const Home = () => {
           id="btn-login"
           onClick={async () => {
             await login();
-            setClicked(false);
           }}
-          ref={ref}
         >
           {clicked ? (
             <Image src={loading} alt="po" height={42} width={42} />
