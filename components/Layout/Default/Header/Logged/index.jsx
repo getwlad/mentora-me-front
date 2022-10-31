@@ -3,7 +3,7 @@ import Link from "next/link";
 import { BrowserRouter as Router, useRouter } from "next/router";
 import { deleteCookie } from "cookies-next";
 
-const Header = (props) => {
+const LoggedHeader = (props) => {
   const router = useRouter();
   const logout = () => {
     deleteCookie("user");
@@ -23,4 +23,4 @@ const Header = (props) => {
   );
 };
 
-export default Header;
+export default LoggedHeader;

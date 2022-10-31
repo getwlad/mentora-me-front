@@ -10,7 +10,9 @@ export const FooterComponent = styled.footer`
   text-align: center;
   height: 100px;
   width: 100%;
+  flex-grow: 0;
   color: white;
   padding: 0 2rem;
-  flex-grow: 0;
+  margin: 10px 0px 5px 0px;
+  position: relative;
 `;

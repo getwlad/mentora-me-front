@@ -4,13 +4,12 @@ import { AiOutlineLogout } from "react-icons/ai";
 export const Nav = styled.nav`
   display: flex;
   text-align: center;
-  height: 100px;
+  height: 80px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  position: relative;
-  grid-row: 1;
+  flex-grow: 0;
 `;
 
 export const Div = styled.div`

@@ -1,13 +1,31 @@
-import { Nav, Label } from "./style";
+import DefaultHeader from "./Default";
+import LoggedHeader from "./Logged";
+import { useEffect, useState } from "react";
+import { getCookie } from "cookies-next";
+import { useRouter } from "next/router";
+const Header = () => {
+  const [logged, setLogged] = useState(false);
+  const router = useRouter();
+  useEffect(() => {
+    try {
+      const userData = JSON.parse(getCookie("user"));
+      setLogged(true);
+    } catch (error) {
+      setLogged(false);
+    }
+    const handleRouteChange = (url) => {
+      try {
+        const userData = JSON.parse(getCookie("user"));
+        setLogged(true);
+      } catch (error) {
+        setLogged(false);
+      }
+    };
+    router.events.on("routeChangeStart", handleRouteChange);
+    if (router.pathname === "/") setLogged(false);
+  }, []);
 
-const Header = (props) => {
-  return (
-    <Nav>
-      <Label href="#">Home</Label>
-      <Label href="#">Mentores</Label>
-      <Label href="#">Sobre</Label>
-    </Nav>
-  );
+  return logged ? LoggedHeader() : DefaultHeader();
 };
 
 export default Header;
