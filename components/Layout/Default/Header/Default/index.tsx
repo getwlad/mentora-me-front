@@ -1,6 +1,6 @@
 import { Nav, Label } from "./style";
 
-const DefaultHeader = (props) => {
+const DefaultHeader = () => {
   return (
     <Nav>
       <Label href="#">Home</Label>

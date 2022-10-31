@@ -1,9 +1,8 @@
 import { Nav, Label, Button, AiIcon, DivLogout, LogoutText } from "./style";
-import Link from "next/link";
-import { BrowserRouter as Router, useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { deleteCookie } from "cookies-next";
 
-const LoggedHeader = (props) => {
+const LoggedHeader = () => {
   const router = useRouter();
   const logout = () => {
     deleteCookie("user");

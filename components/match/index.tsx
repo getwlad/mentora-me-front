@@ -8,7 +8,6 @@ import {
   Information,
   Detail,
   Button,
-  AiIcon,
   Mentorships,
   ProfileImage,
   TextMentorship,
@@ -22,18 +21,25 @@ import {
   Loading,
 } from "./style";
 import Head from "next/head";
-import Link from "next/link";
-import { BrowserRouter as Router, useRouter } from "next/router";
-import { getCookie, setCookie, deleteCookie } from "cookies-next";
+import {useRouter } from "next/router";
+import { getCookie } from "cookies-next";
 import { useState, useEffect } from "react";
 import api from "../../services/api.service";
-
+import Mentor  from "../../models/Mentor.model";
+import { AxiosResponse } from "axios";
 const Home = () => {
   const router = useRouter();
-  const [mentorsData, setMentorsData] = useState({ name: "Usuario" });
+  const [mentorsData, setMentorsData] = useState<Mentor[]>([]);
   useEffect(() => {
+    const loadMentors = async(config: {}) =>{
+      const response: AxiosResponse | any = await api
+      .get<Mentor[]>("/student/match", config)
+      .catch((e) => console.log(e));
+    if(!response) return;
+      setMentorsData(response.data);
+    }
     try {
-      const userData = JSON.parse(getCookie("user"));
+      const userData = JSON.parse(getCookie("user") as string);
       const token = userData.token;
       const config = {
         headers: { Authorization: `Bearer ${token}` },
@@ -43,12 +49,7 @@ const Home = () => {
         router.push("/");
       });
       if (userData.user.user_type === "STUDENT") {
-        api
-          .get("/student/match", config)
-          .then((resp) => {
-            setMentorsData(resp.data);
-          })
-          .catch((e) => console.log(e));
+        loadMentors( config);
       }
     } catch (error) {
       console.log(error);

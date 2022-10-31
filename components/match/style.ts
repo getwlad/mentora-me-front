@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Link from "next/link";
 import { AiFillForward, AiFillBackward, AiOutlineUser } from "react-icons/ai";
 
 export const Section = styled.section`

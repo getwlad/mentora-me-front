@@ -8,14 +8,14 @@ const Header = () => {
   const router = useRouter();
   useEffect(() => {
     try {
-      const userData = JSON.parse(getCookie("user"));
+      const userData = JSON.parse(getCookie("user") as string);
       setLogged(true);
     } catch (error) {
       setLogged(false);
     }
     const handleRouteChange = (url) => {
       try {
-        const userData = JSON.parse(getCookie("user"));
+        const userData = JSON.parse(getCookie("user") as string);
         setLogged(true);
       } catch (error) {
         setLogged(false);

@@ -1,19 +1,12 @@
 import {
   Section,
-  Div,
   Title,
-  Form,
-  Input,
   Button,
-  AiIcon,
-  DivInputs,
   Subtitle,
 } from "./style";
-import Link from "next/link";
-import { BrowserRouter as Router, useRouter } from "next/router";
-import { getCookie } from "cookies-next";
-import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useRouter } from "next/router";
+import {  getCookie } from "cookies-next";
+import { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Head from "next/head";
@@ -24,8 +17,8 @@ const Home = () => {
 
   useEffect(() => {
     try {
-      const userData = JSON.parse(getCookie("user"));
-      const info = JSON.parse(getCookie("info"));
+      const userData: {} = JSON.parse(getCookie("user") as string);
+      const info: {name: string} = JSON.parse(getCookie("info") as string);
       setInfoData(info);
     } catch (error) {
       toast.error(`Error: Inicie uma sessão`);

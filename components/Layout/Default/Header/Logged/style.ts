@@ -12,11 +12,6 @@ export const Nav = styled.nav`
   flex-grow: 0;
 `;
 
-export const Div = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
 export const DivLogout = styled.div`
   display: flex;
   align-items: center;

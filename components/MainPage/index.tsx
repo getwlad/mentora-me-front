@@ -7,18 +7,19 @@ import {
   Button,
   AiIcon,
   DivInputs,
-  LoadIcon,
+
 } from "./style";
 import Image from "next/image";
 import loading from "./../../public/icons/loading.svg";
 import Head from "next/head";
-import { getCookie, setCookie, deleteCookie } from "cookies-next";
+import { setCookie} from "cookies-next";
 import Link from "next/link";
-import { BrowserRouter as Router, useRouter } from "next/router";
+import {useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import api from "../../services/api.service";
+import { AxiosResponse } from "axios";
 const Home = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
