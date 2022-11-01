@@ -7,24 +7,28 @@ import {
   Button,
   AiIcon,
   DivInputs,
-
 } from "./style";
 import Image from "next/image";
 import loading from "./../../public/icons/loading.svg";
 import Head from "next/head";
-import { setCookie} from "cookies-next";
+import { setCookie } from "cookies-next";
 import Link from "next/link";
-import {useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useState } from "react";
-import api from "../../services/api.service";
-import { AxiosResponse } from "axios";
+import User from "../../models/User.model";
+import UserService from "../../services/user.service";
+import StudentService from "../../services/student.service";
+import Student from "../../models/Student.model";
+
 const Home = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [clicked, setClicked] = useState(false);
   const router = useRouter();
+  const userService = new UserService();
+  const studentService = new StudentService();
   const verifyKeyPressed = async (e) => {
     if (e.code === "Enter" || e.code === "NumpadEnter") {
       await login();
@@ -34,36 +38,21 @@ const Home = () => {
   const login = async () => {
     if (clicked) return;
     setClicked(true);
-    const resp = await api
-      .post("/user/login", {
-        email,
-        password,
-      })
-      .catch((e) => {
-        toast.error(`Error: ${e.response.data.error}`);
-      });
-
-    if (!resp) {
+    const userResponse = await userService.login(email, password);
+    if (!userResponse.auth) {
+      toast.error(userResponse.error);
       return setClicked(false);
     }
-
-    setCookie("user", JSON.stringify(resp.data));
-    const token = resp.data.token;
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
-
-    if (resp.data.user.user_type === "STUDENT") {
-      const studentResponse = await api
-        .get("/student/show", config)
-        .catch((e) => {
-          toast.error(`Error: ${e.response.data.error}`);
-        });
-      if (!studentResponse) {
+    const user: User = userResponse.user;
+    setCookie("user", JSON.stringify(userResponse));
+    const token = userResponse.token;
+    if (user.user_type === "STUDENT") {
+      const student: Student | string = await studentService.getStudent(token);
+      if (typeof student === "string") {
+        toast.error(`Erro: ${student}`);
         return setClicked(false);
       }
-
-      setCookie("info", JSON.stringify(studentResponse.data));
+      setCookie("info", JSON.stringify(student));
       toast.success("Login efetuado com sucesso");
       setTimeout(() => {
         router.push("/dashboard");
