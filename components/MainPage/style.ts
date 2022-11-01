@@ -7,7 +7,7 @@ export const Section = styled.section`
   align-items: center;
   text-align: center;
   height: 100%;
-
+  flex-grow: 1;
   color: white;
   width: 100%;
   @media (max-width: 768px) {
